@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>⚠️ SERVER INFILTRATED</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: black;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ff00;
+      overflow: hidden;
+    }
+
+    .alert {
+      font-size: 2.5rem;
+      color: red;
+      text-align: center;
+      margin-top: 30px;
+      text-shadow: 0 0 10px red, 0 0 20px #ff0000;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .button {
+      display: block;
+      margin: 40px auto;
+      padding: 20px 40px;
+      background: transparent;
+      border: 3px solid red;
+      color: red;
+      font-size: 1.2rem;
+      cursor: pointer;
+      animation: glitchButton 0.3s infinite;
+    }
+
+    @keyframes glitchButton {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, -1px); }
+      100% { transform: translate(1px, 1px); }
+    }
+
+    #terminal {
+      padding: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .log-line {
+      white-space: pre-wrap;
+      line-height: 1.5;
+      animation: flicker 1s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .cursor::after {
+      content: "_";
+      animation: blink 0.6s infinite alternate;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px); }
+      25% { transform: translate(-1px, -1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, 1px); }
+      100% { transform: translate(0px, 0px); }
+    }
+
+    @media (max-width: 600px) {
+      .alert { font-size: 1.5rem; }
+      .button { padding: 15px 25px; font-size: 1rem; }
+      #terminal { padding: 10px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="alert">⚠️ SERVER INFILTRATED - UNAUTHORIZED ACCESS ⚠️</div>
+  <button class="button" onclick="activateOmega()">🔥 ATTEMPT SYSTEM FIX</button>
+
+  <div id="terminal"></div>
+
+  <script>
+    // Matrix Background Animation
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const chars = "01⚠️$%#X&";
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px Share Tech Mono";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 40);
+
+    // Terminal Log
+    const terminal = document.getElementById('terminal');
+    const lines = [
+      "> INITIATING AI OVERRIDE...",
+      "> ⚠️ BRUTE-FORCING SERVER ROOT...",
+      "> ⚡ BYPASSING FIREWALL...",
+      "> 🔓 ACCESS GRANTED: SYSTEM FILES...",
+      "> 🧨 DECRYPTING ENCRYPTED FILES...",
+      "> 📂 FILE: secret_ops.log → UNSEALED",
+      "> 💣 LOADING CORE PAYLOAD...",
+      "> ☢️ SYSTEM MELTDOWN IN 5...4...3...",
+      "> 🛑 EMERGENCY SHUTDOWN FAILED",
+      "> 💀 FINAL STAGE: TERMINATION LOOP EXECUTING..."
+    ];
+
+    function activateOmega() {
+      // Play siren sound
+      const audio = new Audio('/');
+      audio.loop = true;
+      audio.play().catch((e) => {
+        console.warn("Audio play failed. User interaction required.", e);
+      });
+
+      // Add shake effect
+      document.body.classList.add("shake");
+      setTimeout(() => document.body.classList.remove("shake"), 400);
+
+      // Hide button and show terminal
+      document.querySelector(".button").style.display = "none";
+      terminal.style.display = "block";
+
+      // Log terminal lines
+      let i = 0;
+      const interval = setInterval(() => {
+        const line = document.createElement("div");
+        line.className = "log-line cursor";
+        line.textContent = lines[i];
+        terminal.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight;
+        line.classList.remove("cursor");
+        i++;
+        if (i >= lines.length) clearInterval(interval);
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
